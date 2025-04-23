@@ -233,6 +233,7 @@ SELECT * FROM t4
 ```
 
 ![image](https://github.com/user-attachments/assets/817f1bf2-b4b4-49e2-afd4-fba42f761cf8)
+![image](https://github.com/user-attachments/assets/d060f4b6-88fb-45f3-970b-031b776a781c)
 
 
 
