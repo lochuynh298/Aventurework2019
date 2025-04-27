@@ -35,7 +35,7 @@ This project utilizes advanced SQL techniques to analyze the AdventureWorks data
 
 ### ❓ Business Questions:
 - Analyze data on items, sales, order quantities, growth rates, top categories, top territories, and total discount costs by subcategories.
-- Assess customer retention rates, stock level trends, month-over-month differences, and stock-to-sales ratios.
+- Assess customer retention rates, 
 - Evaluate the number and value of pending orders in 2014.
 
 ## 🎯Project Outcome:
@@ -73,7 +73,7 @@ Table 7: Purchasing.PurchaseOrderHeader
 
 ![image](https://github.com/user-attachments/assets/45757004-76fe-4bdf-b00f-d13db27bc258)
 
-### 🧠 Problem Solving Process
+## 🧠 Problem Solving Process
 
 | 1️⃣ Understand Problem	 | 2️⃣ Break it down into smaller pieces | 3️⃣ Ideate | 4️⃣ Implement and Review |
 | --------               | --------                              | --------  | -------------------------|
@@ -140,6 +140,7 @@ Order by total_sales
 💡 
 - Highest Total Sales: The "Components" category has significantly higher total sales (614,732,125.11) compared to all other categories.
 - Largest Percentage Contribution: "Components" account for a massive 73.14% of the total sales. This indicates that components are the primary revenue driver for the business.
+
 Query 3️⃣: Usinng Time Series to identify trend line of each category by number of transaction
 
 ```sql
@@ -232,10 +233,51 @@ SELECT * FROM t4
 
 ```
 
-![image](https://github.com/user-attachments/assets/817f1bf2-b4b4-49e2-afd4-fba42f761cf8)
-![image](https://github.com/user-attachments/assets/d060f4b6-88fb-45f3-970b-031b776a781c)
+![image](https://github.com/user-attachments/assets/ed8f00e4-6da4-4630-a205-15f7c57ba6d0)
+![image](https://github.com/user-attachments/assets/f5538753-2b99-4588-b684-413266a5dc89)
 
 
 
 
+💡 The cohort analysis reveals a consistent pattern of strong initial sales followed by a significant drop-off. However, there are substantial and recurring spikes in sales value around the 4th and 7th months after the initial purchase across multiple cohorts. This strongly suggests a significant re-engagement driver occurring at these time intervals, likely linked to seasonal purchasing patterns, successful marketing campaigns, or product-related cycles. While re-engagement occurs, sustained high spending beyond these peaks varies, highlighting the importance of understanding and cultivating long-term customer loyalty. The consistent timing of these spikes presents valuable opportunities for targeted marketing and proactive re-engagement strategies to maximize customer lifetime value. Investigating the specific reasons behind these recurring surges is crucial for optimizing business strategies.
+
+Query 6️⃣:  No of order and value at Pending status in 2014
+
+```sql
+SELECT
+    YEAR(ModifiedDate) AS yr,
+    Status,
+    COUNT(PurchaseOrderID) AS order_cnt,
+    SUM(TotalDue) AS value
+FROM
+    Purchasing.PurchaseOrderHeader
+WHERE
+    YEAR(ModifiedDate) = 2014
+    AND Status = 1
+GROUP BY
+    YEAR(ModifiedDate),
+    Status;
+```
+![image](https://github.com/user-attachments/assets/0d258fa7-abd3-4156-8b32-11de07e136f8)
+
+💡 The significant number of pending orders underscores the necessity of evaluating vendor performance to gauge their efficiency and recommending a revamp of their order processes.
+
+
+## 🔎 Final Conclusion & Recommendations
+
+This SQL project, through its analysis of the AdventureWorks dataset, provided several valuable business insights:
+
+- **Revenue and Quantity Sales**: Identifying Road Bikes Sub-Category with the highest sales revenue  with the highest quantity sales informed inventory and marketing strategies to meet strong market demand. Notable year-over-year growth in Mountain Frames and Socks highlighted growth opportunities.
+- **Monthly and Yearly Trends**: 
+   1)Strong and Consistent Demand for Components: "Components" are the consistently best-selling category in terms of the number of transactions. This suggests a high volume of smaller purchases or a frequent need for individual parts.
+
+   2)Seasonal or Event-Driven Demand for Accessories: The peaks in "Accessories" sales likely correlate with specific times of the year (e.g., holidays, start of cycling seasons) or promotional events. Analyzing the dates of these peaks could reveal valuable insights for marketing and inventory planning.
+
+   3)Bikes are Likely Higher Value, Lower Volume Purchases: The low transaction volume for "Bikes" is expected as they are typically higher-priced items purchased less frequently than components or accessories. The slight increase at the end might indicate a seasonal trend or a successful campaign.
+
+   4)Growth in Clothing Sales: The significant increase in "Clothing" transactions around mid-2013 suggests a successful expansion of this product line, a shift in customer preferences, or effective marketing efforts. The subsequent fluctuations might indicate seasonal demand for cycling apparel.
+
+- **Customer and Order Management**: Insights into customer retention emphasized the need for improved retention strategies. Observing stock quantity trends and the high number of pending orders underscored the importance of effective inventory and order process management to boost sales revenue.
+
+Overall, this project demonstrated the power of data-driven strategies in optimizing business operations and making informed decisions, enhancing SQL skills, and showcasing the practical applications of data analysis in a business context.
 
